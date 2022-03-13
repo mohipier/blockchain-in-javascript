@@ -1,8 +1,8 @@
 const Blockchain = require("./blockchain");
 
-const bitcoin = new Blockchain();
+const myCoin = new Blockchain();
 
-console.log(bitcoin);
+console.log(myCoin);
 
 const previousBlockHash = 'skdfjoiahfoiajdaweiophfauiohfaioefjf';
 const currentBlockData = [
@@ -33,6 +33,6 @@ const currentBlockData = [
 	} 
 ];
 
-const nonce = bitcoin.proofOfWork(previousBlockHash, currentBlockData);
+const nonce = myCoin.proofOfWork(previousBlockHash, currentBlockData);
 
-console.log(nonce , bitcoin.hashBlock(previousBlockHash, currentBlockData , nonce));
+console.log(nonce , myCoin.hashBlock(previousBlockHash, currentBlockData , nonce));
