@@ -216,7 +216,7 @@ app.get('/block/:blockHash' , function(req,res) {
 	})
 });
 
-app.get('/transactioin/:transactionId' , function(req,res) {
+app.get('/transaction/:transactionId' , function(req,res) {
 	const transactionId = req.params.transactionId;
 	const transactionData = myCoin.getTransaction(transactionId);
 	res.json({
@@ -231,6 +231,10 @@ app.get('/address/:address' , function(req,res) {
 	res.json({
 		addressData: addressData
 	});
+});
+
+app.get('/block-explorer' , function(req,res) {
+	res.sendFile('./block-explorer/index.html' , { root: __dirname });
 });
 
 
