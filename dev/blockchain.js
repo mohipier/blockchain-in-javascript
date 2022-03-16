@@ -1,5 +1,6 @@
 const sha256 = require('sha256');
 const currentNodeUrl = process.argv[3];
+const { v4: uuidv4 } = require('uuid');
 function Blockchain() {
 	this.chain = [];
 	this.pendingTransactions = [];
@@ -34,11 +35,15 @@ Blockchain.prototype.createNewTransaction = function(amount, sender , recipient)
 	const newTransaction = {
 		amount: amount, 
 		sender: sender , 
-		recipient: recipient
+		recipient: recipient , 
+		transactionId: uuidv4().split('-').join(''),
 	};
 
-	this.pendingTransactions.push(newTransaction);
-	
+	return newTransaction;
+}
+
+Blockchain.prototype.addTransactionToPendingTransactions = function(transactionObj) {
+	this.pendingTransactions.push(transactionObj);
 	return this.getLastBlock()['index'] + 1;
 }
 
@@ -57,6 +62,93 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
 	}
 
 	return nonce;
+}
+
+
+Blockchain.prototype.chainIsValid = function(blockChain) {
+	let validChain = true;
+
+	for(var i = 1; i< blockChain.length; i++) {
+		const currentBlock = blockChain[i];
+		const prevBlock = blockChain[i-1];
+		const blockHash = this.hashBlock(prevBlock['hash'] , 
+			{ 
+				transactions: currentBlock['transactions'] , 
+				index: currentBlock['index'] 
+			} ,
+			currentBlock['nonce']
+			);
+		
+		if(blockHash.substring(0,4) !== '0000')
+			validChain = false;
+
+		if(currentBlock['previousBlockHash'] !== prevBlock['hash']) 
+			validChain = false;
+	}
+
+	const genesisBlock = blockChain[0];
+	const correctNonce = genesisBlock['nonce'] === 100;
+	const correctPreviousBlockHash = genesisBlock['previousBlockHash'] === '0';
+	const correctHash = genesisBlock['hash'] === '0';
+	const correctTransations = genesisBlock['transactions'].length === 0;
+
+	if(!correctNonce || !correctPreviousBlockHash || !correctHash || !correctTransations)
+		validChain = false;
+
+	return validChain;
+}
+
+Blockchain.prototype.getBlock = function(blockHash) {
+	let correctBlock = null;
+	this.chain.forEach(block => {
+		if(block.hash === blockHash) 
+			correctBlock = block;
+	});
+
+	return correctBlock;
+}
+
+Blockchain.prototype.getTransaction = function(transactionId) {
+	let correctTransaction = null;
+	let correctBlock = null;
+	this.chain.forEach(block => {
+		block.transactions.forEach(transaction => {
+			if(transaction.transactionId === transactionId) {
+				correctTransaction = transaction;
+				correctBlock = block;
+			}
+		});
+	});
+
+	return {
+		transaction: correctTransaction , 
+		block: correctBlock
+	};
+}
+
+Blockchain.prototype.getAddressData = function(address) {
+	let addressTransactions = [];
+
+	this.chain.forEach(block => {
+		block.transactions.forEach(transaction => {
+			if(transaction.sender === address || transaction.recipient === address) {
+				addressTransactions.push(transaction);
+			}
+		});
+	});
+
+	let balance = 0;
+	addressTransactions.forEach(transaction => {
+		if(transaction.recipient == address) 
+			balance += transaction.amount;
+		else if(transaction.sender == address) 
+			balance -= transaction.amount;
+	});
+
+	return {
+		addressTransactions: addressTransactions,
+		addressBalance: balance
+	};
 }
 
 

@@ -2,37 +2,7 @@ const Blockchain = require("./blockchain");
 
 const myCoin = new Blockchain();
 
-console.log(myCoin);
+const bc1 = 
+ {"chain":[{"index":1,"timestamp":1647351897308,"transactions":[],"nonce":100,"hash":"0","previousBlockHash":"0"},{"index":2,"timestamp":1647352165184,"transactions":[],"nonce":18140,"hash":"0000b9135b054d1131392c9eb9d03b0111d4b516824a03c35639e12858912100","previousBlockHash":"0"},{"index":3,"timestamp":1647352236474,"transactions":[{"amount":12.5,"sender":"00","recipient":"8c66056b380a4185a68aa465a1e55bf6","transactionId":"7120bd03b7324323b70148bce312bab6"},{"amount":10,"sender":"sdfertyerlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"d4fba44f8bdb4977be11eb444664c92d"},{"amount":20,"sender":"sdfertysfsfrlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsdfsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"ef47b56e477f41b1868f6050db75b28e"},{"amount":30,"sender":"sdfertysfsfrlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsdfsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"ad2b7ec9455448429ac18df15bd75b46"}],"nonce":49183,"hash":"0000ebd06c28da13fb14a2a14f381cea03c47312195485df04575e5aa463197e","previousBlockHash":"0000b9135b054d1131392c9eb9d03b0111d4b516824a03c35639e12858912100"},{"index":4,"timestamp":1647352288422,"transactions":[{"amount":12.5,"sender":"00","recipient":"8c66056b380a4185a68aa465a1e55bf6","transactionId":"f356220bb9474c7a8375770133d74ee8"},{"amount":40,"sender":"sdfertysfsfrlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsdfsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"2542bb981d954d64813740fe0a8186ec"},{"amount":50,"sender":"sdfertysfsfrlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsdfsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"686f19dadcf04dbba9f031b9a83e94d0"},{"amount":60,"sender":"sdfertysfsfrlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsdfsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"29bf43fa0570457f961fc31bcb84f564"},{"amount":70,"sender":"sdfertysfsfrlfsdfuikukuwopeifhiofhoi","recipient":"kaewqdasddsfsdfsfsrfhfghjhoieriouwkhkghjgorj","transactionId":"f43ff12eb5934b16bc5e795f4705058f"}],"nonce":43550,"hash":"0000d4e7e000d989868c0a764ee163e89d39c2fd388b5fa3e1aac023b97c22ec","previousBlockHash":"0000ebd06c28da13fb14a2a14f381cea03c47312195485df04575e5aa463197e"},{"index":5,"timestamp":1647352297171,"transactions":[{"amount":12.5,"sender":"00","recipient":"8c66056b380a4185a68aa465a1e55bf6","transactionId":"0a62530bdbdf4da1a7bae3d3c9232c74"}],"nonce":76742,"hash":"0000da24315ef6fcc1c662f31861e4b00bb683d4007ddd8b32d3d3b823861bc8","previousBlockHash":"0000d4e7e000d989868c0a764ee163e89d39c2fd388b5fa3e1aac023b97c22ec"},{"index":6,"timestamp":1647352299230,"transactions":[{"amount":12.5,"sender":"00","recipient":"8c66056b380a4185a68aa465a1e55bf6","transactionId":"26507e18c91c48a3932f3121936b748f"}],"nonce":83324,"hash":"00005da517ed81fc4aa3b6246fcca088e36b734928e141edac81a4b9c4f67b23","previousBlockHash":"0000da24315ef6fcc1c662f31861e4b00bb683d4007ddd8b32d3d3b823861bc8"}],"pendingTransactions":[{"amount":12.5,"sender":"00","recipient":"8c66056b380a4185a68aa465a1e55bf6","transactionId":"101e7c7aac87476983a4f7eb202e8802"}],"currentNodeUrl":"http://localhost:3001","networkNodes":[]};
 
-const previousBlockHash = 'skdfjoiahfoiajdaweiophfauiohfaioefjf';
-const currentBlockData = [
-	{
-		amount: 10,
-		sender: 'dfklsjdflksjfl;ksdjflsjd;fksdjf',
-		recipient: 'eiuropiwtdsklnvkjnfdsfksfjjfdfsdfa',
-	} , 
-	{
-		amount: 100,
-		sender: 'dfklsjdflkssdfjfl;ksdjflsjd;fksdjf',
-		recipient: 'eiuropiwsdfsdtdsklnvkjnfdsfksfjjfdfsdfa',
-	} , 
-	{
-		amount: 20,
-		sender: 'dfklsjdflksfdsfsjfl;ksdjflsjd;fksdjf',
-		recipient: 'eiursdfsdopiwtdsklnvkjnfdsfksfjjfdfsdfa',
-	} , 
-	{
-		amount: 150,
-		sender: 'dfklsjdflksjfl;ksdjflsshfghfjd;fksdjf',
-		recipient: 'eiurfghfghopiwtdsklnvkjnfdsfksfjjfdfsdfa',
-	} , 
-	{
-		amount: 110,
-		sender: 'dfklsjdflksjfl;ksdjflqweqwesjd;fksfsddjf',
-		recipient: 'eiuropcssdciwtdsklnvkjnfdsfksfjjfdfsdfa',
-	} 
-];
-
-const nonce = myCoin.proofOfWork(previousBlockHash, currentBlockData);
-
-console.log(nonce , myCoin.hashBlock(previousBlockHash, currentBlockData , nonce));
+console.log('VALID: ' , myCoin.chainIsValid(bc1.chain));
